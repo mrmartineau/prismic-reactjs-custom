@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es2018",
+    "declaration": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "jsx": "react",
+    "allowUnreachableCode": false,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*", "types/**/*"],
+  "exclude": [
+    "src/**/*test*",
+    "node_modules",
+    "build",
+    "release",
+    "assets",
+  ]
+}
