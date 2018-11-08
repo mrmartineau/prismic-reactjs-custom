@@ -20,7 +20,7 @@ export default [
     },
     plugins: [
       typescript(),
-      buble(),
+
       resolve(),
       commonjs(),
       jsx({ factory: 'React.createElement' }),
@@ -40,7 +40,6 @@ export default [
     },
     plugins: [
       typescript(),
-      buble(),
       resolve(),
       commonjs(),
       jsx({ factory: 'React.createElement' }),
