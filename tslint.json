@@ -11,5 +11,8 @@
     "no-unused-expression": [false],
     "prefer-object-spread": [false],
     "object-literal-sort-keys": [false]
+  },
+  "cliOptions": {
+    "exclude": ["dist", "node_modules"]
   }
 }

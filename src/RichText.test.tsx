@@ -1,15 +1,13 @@
 import * as React from 'react'
 import { render, cleanup } from 'react-testing-library'
 
-import testData from './richtext-test-data'
-import { CustomRichText } from './custom-prismic-richtext-render'
-
-const RichText = ({ text }) => CustomRichText.render(text)
+import { testData } from './Richtext.test.data'
+import { RichText } from './'
 
 // automatically unmount and cleanup DOM after the test is finished.
 afterEach(cleanup)
 
 test('RichText snapshot', () => {
-  const { container } = render(<RichText text={testData} />)
+  const { container } = render(<RichText richText={testData} />)
   expect(container.firstChild).toMatchSnapshot()
 })

@@ -2,6 +2,7 @@
 import * as React from 'react'
 import { Elements, asText, serialize as PRserialize } from 'prismic-richtext'
 import { Link as LinkHelper } from 'prismic-helpers'
+import { PrismicRichText } from './RichText.model'
 
 const chooseElement = (
   standardTag: string,
@@ -17,29 +18,29 @@ const chooseElement = (
 }
 
 interface SerializeOptions {
-  heading1?: React.ReactNode
-  heading2?: React.ReactNode
-  heading3?: React.ReactNode
-  heading4?: React.ReactNode
-  heading5?: React.ReactNode
-  heading6?: React.ReactNode
-  paragraph?: React.ReactNode
-  preformatted?: React.ReactNode
-  strong?: React.ReactNode
-  em?: React.ReactNode
-  listItem?: React.ReactNode
-  oListItem?: React.ReactNode
-  list?: React.ReactNode
-  oList?: React.ReactNode
-  image?: React.ReactNode
-  embed?: React.ReactNode
-  hyperlink?: React.ReactNode
-  label?: React.ReactNode
-  span?: React.ReactNode
+  heading1?: React.ReactType
+  heading2?: React.ReactType
+  heading3?: React.ReactType
+  heading4?: React.ReactType
+  heading5?: React.ReactType
+  heading6?: React.ReactType
+  paragraph?: React.ReactType
+  preformatted?: React.ReactType
+  strong?: React.ReactType
+  em?: React.ReactType
+  listItem?: React.ReactType
+  oListItem?: React.ReactType
+  list?: React.ReactType
+  oList?: React.ReactType
+  image?: React.ReactType
+  embed?: React.ReactType
+  hyperlink?: React.ReactType
+  label?: React.ReactType
+  span?: React.ReactType
 }
 
 function serialize(
-  options: SerializeOptions = {},
+  options: SerializeOptions,
   linkResolver: any,
   type: string,
   element: any,
@@ -210,7 +211,11 @@ function serializeImage(
   )
 }
 
-function serializeEmbed(element: any, key: number) {
+function serializeEmbed(
+  element: any,
+  key: number,
+  CustomEmbed: React.ReactType
+) {
   const props = {
     'data-oembed': element.oembed.embed_url,
     'data-oembed-type': element.oembed.type,
@@ -218,23 +223,25 @@ function serializeEmbed(element: any, key: number) {
     ...(element.label ? { className: element.label } : {}),
   }
 
-  const embedHtml = React.createElement('div', {
-    dangerouslySetInnerHTML: { __html: element.oembed.html },
-  })
+  let embedHtml
 
-  return React.createElement(
-    React.Fragment,
-    propsWithUniqueKey(props, key),
-    embedHtml
-  )
+  if (CustomEmbed) {
+    embedHtml = <CustomEmbed key={key} />
+  } else {
+    embedHtml = React.createElement('div', {
+      dangerouslySetInnerHTML: { __html: element.oembed.html },
+    })
+  }
+
+  return React.createElement('div', propsWithUniqueKey(props, key), embedHtml)
 }
 
-export const CustomRichText = {
-  asText: (structuredText: string) => {
-    return asText(structuredText)
+export const RichTextRenderer = {
+  asText: (richText: PrismicRichText) => {
+    return asText(richText)
   },
   render: (
-    richText: string,
+    richText: PrismicRichText,
     options?: any,
     linkResolver?: any,
     htmlSerializer?: any

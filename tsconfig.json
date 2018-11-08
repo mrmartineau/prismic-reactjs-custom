@@ -12,12 +12,6 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "types/**/*"],
-  "exclude": [
-    "src/**/*test*",
-    "node_modules",
-    "build",
-    "release",
-    "assets",
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*test*", "node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 {
   "name": "prismic-reactjs-custom",
-  "description": "A version of the existing prismic-reactjs that allows custom React elements to be used",
-  "version": "0.0.0",
+  "description": "This is an opinionated fork of prismic-reactjs package  that allows you to use custom React components instead of standard HTML tags",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
@@ -11,10 +11,15 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "microbundle",
-    "start": "storybook",
+    "build": "NODE_ENV=production rollup -c",
+    "watch": "rollup -c -w",
     "test": "jest",
-    "lint": "tslint ./src/**/*.{ts,tsx}"
+    "lint": "tslint ./src/**/*.{ts,tsx}",
+    "prepack": "npm run build",
+    "presize": "npm run build",
+    "size": "size-limit",
+    "presize:why": "npm run build",
+    "size:why": "size-limit --why"
   },
   "dependencies": {
     "prismic-helpers": "^1.0.0",
@@ -24,11 +29,20 @@
     "@types/jest": "^23.3.9",
     "@types/react": "^16.4.18",
     "jest": "^23.6.0",
-    "microbundle": "^0.7.0",
     "prettier": "^1.14.3",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-testing-library": "^5.2.3",
+    "rollup": "^0.67.0",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-buble": "^0.19.4",
+    "rollup-plugin-bundle-size": "^1.0.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.17.2",
+    "size-limit": "^0.21.0",
     "ts-jest": "^23.10.4",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
@@ -36,7 +50,13 @@
     "typescript": "^3.1.6"
   },
   "peerDependencies": {
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0"
-  }
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "20 KB"
+    }
+  ]
 }
