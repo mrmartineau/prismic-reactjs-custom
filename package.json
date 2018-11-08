@@ -4,7 +4,12 @@
   "version": "0.3.0",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
+  "repository": {
+    "url": "git@github.com:mrmartineau/prismic-reactjs-custom.git",
+    "type": "git"
+  },
   "author": {
+    "url": "https://zander.wtf",
     "name": "Zander Martineau"
   },
   "license": "MIT",
