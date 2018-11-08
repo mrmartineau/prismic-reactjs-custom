@@ -2,18 +2,20 @@
 
 > This is an opinionated fork of [prismic-reactjs](https://github.com/prismicio/prismic-reactjs) that allows you to use custom React components instead of standard HTML tags
 
+[![](https://badgen.net/npm/v/prismic-reactjs-custom)](https://www.npmjs.com/package/prismic-reactjs-custom) [![](https://badgen.net/bundlephobia/minzip/prismic-reactjs-custom)](https://bundlephobia.com/result?p=prismic-reactjs-custom)
+
 ```js
-import { RichText } from 'prismic-reactjs-custom'
+import { RichText, RichTextRenderer, Link, Date } from 'prismic-reactjs-custom'
 ```
 
 ## Usage
 
-Use our `RichText` React component.
+Use the `RichText` React component
 
 ```jsx
 import { RichText } from 'prismic-reactjs-custom'
 
-// `text` is the only required prop
+// `richText` is the only required prop
 // all other props are optional
 <RichText
   richText={richTextDataFromPrismic}
@@ -21,6 +23,32 @@ import { RichText } from 'prismic-reactjs-custom'
   paragraph={yourCustomParagraph}
 />
 ```
+
+### Props
+
+`richText`: The only required prop. Must be a `JSON.parse`d version of a Prismic Rich Text array. See an example [here](https://github.com/mrmartineau/prismic-reactjs-custom/blob/master/src/Richtext.test.data.ts)
+
+Each of these props should be a React component that renders a specific tag.
+
+- `heading1`
+- `heading2`
+- `heading3`
+- `heading4`
+- `heading5`
+- `heading6`
+- `paragraph`
+- `preformatted`
+- `strong`
+- `em`
+- `listItem`
+- `oListItem`
+- `list`
+- `oList`
+- `image`
+- `embed`
+- `hyperlink`
+- `label`
+- `span`
 
 ## Alternative Usage
 
@@ -76,4 +104,27 @@ Convert a Date as string from the API to an ISO Date:
 import { Date } from 'prismic-reactjs-custom'
 
 Date(mydoc.data.mydate)
+```
+
+# Example using styled-components
+
+```jsx
+import { RichText } from 'prismic-reactjs-custom'
+import styled from 'styled-components'
+
+const Heading1 = styled.h1`
+  font-size: 3rem;
+  color: pink;
+`
+
+const Paragraph = styled.p`
+  font-size: 1rem;
+  color: blue;
+`
+
+<RichText
+  richText={richTextDataFromPrismic}
+  heading1={Heading1}
+  paragraph={Paragraph}
+/>
 ```
