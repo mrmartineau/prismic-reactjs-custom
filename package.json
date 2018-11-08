@@ -1,7 +1,7 @@
 {
   "name": "prismic-reactjs-custom",
   "description": "This is an opinionated fork of prismic-reactjs package  that allows you to use custom React components instead of standard HTML tags",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
