@@ -42,7 +42,7 @@
     "rollup-plugin-bundle-size": "^1.0.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-jsx": "^1.0.3",
-    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript2": "^0.17.2",
     "size-limit": "^0.21.0",
