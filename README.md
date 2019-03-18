@@ -17,7 +17,7 @@ import { RichText } from 'prismic-reactjs-custom'
 
 // `richText` is the only required prop
 // all other props are optional
-<RichText
+;<RichText
   richText={richTextDataFromPrismic}
   heading1={yourCustomHeading1}
   paragraph={yourCustomParagraph}
@@ -58,7 +58,7 @@ Import the renderer and create your own React component
 import { RichTextRenderer } from 'prismic-reactjs-custom'
 
 export const RichText = ({ text }) =>
-  CustomRichText.render(text, {
+  RichTextRenderer.render(text, {
     heading1: CustomH1, // your own component
     heading2: CustomH2,
     heading3: CustomH3,
