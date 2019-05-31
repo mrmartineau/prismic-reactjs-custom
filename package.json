@@ -35,7 +35,7 @@
     "prettier": "^1.16.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-testing-library": "^6.0.0",
+    "react-testing-library": "^8.0.1",
     "rollup": "^1.6.0",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-buble": "^0.19.6",
