@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
+  "types": "dist/es/index.d.ts",
   "repository": {
     "url": "git@github.com:mrmartineau/prismic-reactjs-custom.git",
     "type": "git"
