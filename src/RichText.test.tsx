@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, cleanup } from 'react-testing-library'
+import { render, cleanup } from '@testing-library/react'
 
 import { testData } from './Richtext.test.data'
 import { RichText } from './'
@@ -9,5 +9,5 @@ afterEach(cleanup)
 
 test('RichText snapshot', () => {
   const { container } = render(<RichText richText={testData} />)
-  expect(container.firstChild).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 })

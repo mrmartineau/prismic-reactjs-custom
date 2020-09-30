@@ -1,15 +1,18 @@
 // this file has been lifted (and modified) directly from https://github.com/prismicio/prismic-reactjs/blob/master/src/richtext.js
-import * as React from 'react'
+import React, { createElement, ElementType, Fragment, ReactNode } from 'react'
 import { Elements, asText, serialize as PRserialize } from 'prismic-richtext'
 import { Link as LinkHelper } from 'prismic-helpers'
 import { PrismicRichText } from './RichText.model'
+import { embeds } from './embeds'
+const createScript =
+  typeof window !== `undefined` ? require('./embeds').createScript : () => {}
 
 const chooseElement = (
   standardTag: string,
   element: any,
   children: any,
   index: number,
-  CustomElement?: React.ReactType
+  CustomElement?: ElementType
 ) => {
   if (CustomElement) {
     return <CustomElement key={index}>{children}</CustomElement>
@@ -18,37 +21,49 @@ const chooseElement = (
 }
 
 interface SerializeOptions {
-  heading1?: React.ReactType
-  heading2?: React.ReactType
-  heading3?: React.ReactType
-  heading4?: React.ReactType
-  heading5?: React.ReactType
-  heading6?: React.ReactType
-  paragraph?: React.ReactType
-  preformatted?: React.ReactType
-  strong?: React.ReactType
-  em?: React.ReactType
-  listItem?: React.ReactType
-  oListItem?: React.ReactType
-  list?: React.ReactType
-  oList?: React.ReactType
-  image?: React.ReactType
-  embed?: React.ReactType
-  hyperlink?: React.ReactType
-  label?: React.ReactType
-  span?: React.ReactType
+  heading1?: ElementType
+  heading2?: ElementType
+  heading3?: ElementType
+  heading4?: ElementType
+  heading5?: ElementType
+  heading6?: ElementType
+  paragraph?: ElementType
+  preformatted?: ElementType
+  strong?: ElementType
+  em?: ElementType
+  listItem?: ElementType
+  oListItem?: ElementType
+  list?: ElementType
+  oList?: ElementType
+  image?: ElementType
+  embed?: ElementType
+  hyperlink?: ElementType
+  label?: ElementType
+  span?: ElementType
 }
 
 function serialize(
   options: SerializeOptions,
   linkResolver: any,
+  elements: any,
   type: string,
   element: any,
   content: any,
-  children: React.ReactNode,
+  children: ReactNode,
   index: number
 ) {
   const opts = Object.assign({}, options)
+  if (elements[type]) {
+    return serializeElement(
+      elements[type],
+      type,
+      element,
+      content,
+      children,
+      index
+    )
+  }
+
   switch (type) {
     case Elements.heading1:
       return chooseElement('h1', element, children, index, opts.heading1)
@@ -99,35 +114,49 @@ function serialize(
   }
 }
 
-function propsWithUniqueKey(props: any, key: number) {
-  return { ...(props || {}), key }
+function propsWithUniqueKey(props: any = {}, key: number) {
+  return Object.assign(props, { key })
+}
+
+function serializeElement(Element, type, props, content, children, index) {
+  return createElement(
+    Element,
+    Object.assign(
+      {},
+      { key: `element-${type}-${index + 1}` },
+      props,
+      { children: children && children.length ? children : undefined },
+      type === 'image' ? { src: props.url, url: undefined } : null
+    )
+  )
 }
 
 function serializeStandardTag(
   tag: any,
   element: any,
-  children: React.ReactNode,
+  children: ReactNode,
   key: number
 ) {
-  const props = element.label ? { className: element.label } : {}
-  return React.createElement(tag, propsWithUniqueKey(props, key), children)
+  const props = element.label
+    ? Object.assign({}, { className: element.label })
+    : {}
+  return createElement(tag, propsWithUniqueKey(props, key), children)
 }
 
 function serializeHyperlink(
   linkResolver: any,
   element: any,
-  children: React.ReactNode,
+  children: ReactNode,
   key: number,
-  CustomLink?: React.ReactType
+  CustomLink?: ElementType
 ) {
   const targetAttr = element.data.target ? { target: element.data.target } : {}
   const relAttr = element.data.target ? { rel: 'noopener' } : {}
-  const props = {
-    href: LinkHelper.url(element.data, linkResolver),
-    ...targetAttr,
-    ...relAttr,
-  }
-
+  const props = Object.assign(
+    { href: LinkHelper.url(element.data, linkResolver) },
+    targetAttr,
+    relAttr
+  )
   if (CustomLink) {
     return (
       <CustomLink key={key} {...props}>
@@ -135,16 +164,18 @@ function serializeHyperlink(
       </CustomLink>
     )
   }
-  return React.createElement('a', propsWithUniqueKey(props, key), children)
+  return createElement('a', propsWithUniqueKey(props, key), children)
 }
 
 function serializeLabel(
   element: any,
-  children: React.ReactNode,
+  children: ReactNode,
   key: number,
-  CustomLabel?: React.ReactType
+  CustomLabel?: ElementType
 ) {
-  const props = element.data ? { className: element.data.label } : {}
+  const props = element.data
+    ? Object.assign({}, { className: element.data.label })
+    : {}
   if (CustomLabel) {
     return (
       <CustomLabel key={key} {...props}>
@@ -152,7 +183,7 @@ function serializeLabel(
       </CustomLabel>
     )
   }
-  return React.createElement('span', propsWithUniqueKey(props, key), children)
+  return createElement('span', propsWithUniqueKey(props, key), children)
 }
 
 function serializeSpan(content: string) {
@@ -162,7 +193,7 @@ function serializeSpan(content: string) {
         return [p]
       } else {
         const brIndex = (acc.length + 1) / 2 - 1
-        const br = React.createElement('br', propsWithUniqueKey({}, brIndex))
+        const br = createElement('br', propsWithUniqueKey({}, brIndex))
         return acc.concat([br, p])
       }
     }, [])
@@ -175,7 +206,7 @@ function serializeImage(
   linkResolver: any,
   element: any,
   key: number,
-  CustomImage?: React.ReactType
+  CustomImage?: ElementType
 ) {
   const linkUrl = element.linkTo
     ? LinkHelper.url(element.linkTo, linkResolver)
@@ -189,69 +220,88 @@ function serializeImage(
   if (CustomImage) {
     img = <CustomImage src={element.url} alt={element.alt || ''} />
   } else {
-    img = React.createElement('img', {
+    img = createElement('img', {
       src: element.url,
       alt: element.alt || '',
     })
   }
 
-  return React.createElement(
+  return createElement(
     'p',
     propsWithUniqueKey(
       { className: [element.label || '', 'block-img'].join(' ') },
       key
     ),
     linkUrl
-      ? React.createElement(
+      ? createElement(
           'a',
-          { href: linkUrl, ...linkTarget, ...relAttr },
+          Object.assign({ href: linkUrl }, linkTarget, relAttr),
           img
         )
       : img
   )
 }
 
-function serializeEmbed(
-  element: any,
-  key: number,
-  CustomEmbed: React.ReactType
-) {
-  const props = {
-    'data-oembed': element.oembed.embed_url,
-    'data-oembed-type': element.oembed.type,
-    'data-oembed-provider': element.oembed.provider_name,
-    ...(element.label ? { className: element.label } : {}),
+function serializeEmbed(element: any, key: number, CustomEmbed: ElementType) {
+  if (embeds[element.oembed.provider_name]) {
+    createScript(embeds[element.oembed.provider_name])
   }
+
+  const className = `embed embed-${element.oembed.provider_name.toLowerCase()}`
+  const props = Object.assign(
+    {
+      'data-oembed': element.oembed.embed_url,
+      'data-oembed-type': element.oembed.type,
+      'data-oembed-provider': element.oembed.provider_name,
+      ref: (ref) => {
+        if (embeds[element.oembed.provider_name]) {
+          embeds[element.oembed.provider_name].load(ref)
+        }
+      },
+    },
+    element.label
+      ? { className: `${className} ${element.label}` }
+      : { className }
+  )
 
   let embedHtml
 
   if (CustomEmbed) {
     embedHtml = <CustomEmbed key={key} />
   } else {
-    embedHtml = React.createElement('div', {
+    embedHtml = createElement('div', {
       dangerouslySetInnerHTML: { __html: element.oembed.html },
     })
   }
 
-  return React.createElement('div', propsWithUniqueKey(props, key), embedHtml)
+  return createElement('div', propsWithUniqueKey(props, key), embedHtml)
 }
 
 export const RichTextRenderer = {
   asText: (richText: PrismicRichText) => {
+    if (Object.prototype.toString.call(richText) !== '[object Array]') {
+      console.warn(
+        `Rich text argument should be an Array. Received ${typeof richText}`
+      )
+      return null
+    }
     return asText(richText)
   },
   render: (
     richText: PrismicRichText,
     options?: any,
     linkResolver?: any,
-    htmlSerializer?: any
+    htmlSerializer?: any,
+    Component: any = Fragment,
+    elements: any = {},
+    args: any = {}
   ) => {
-    const children = PRserialize(
+    const serializedChildren = PRserialize(
       richText,
-      serialize.bind(null, options, linkResolver),
+      serialize.bind(null, options, linkResolver, elements),
       htmlSerializer
     )
-    return React.createElement(React.Fragment, {}, children)
+    return createElement(Component, args, serializedChildren)
   },
   Elements,
 }

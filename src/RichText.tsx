@@ -1,33 +1,33 @@
-import * as React from 'react'
+import React, { FC, ReactNode } from 'react'
 import { RichTextRenderer } from './RichText.renderer'
 import { PrismicRichText } from './RichText.model'
 
-interface RichTextProps {
+export interface RichTextProps {
   richText: PrismicRichText
-  heading1?: React.ReactNode
-  heading2?: React.ReactNode
-  heading3?: React.ReactNode
-  heading4?: React.ReactNode
-  heading5?: React.ReactNode
-  heading6?: React.ReactNode
-  paragraph?: React.ReactNode
-  preformatted?: React.ReactNode
-  strong?: React.ReactNode
-  em?: React.ReactNode
-  listItem?: React.ReactNode
-  oListItem?: React.ReactNode
-  list?: React.ReactNode
-  oList?: React.ReactNode
-  image?: React.ReactNode
-  embed?: React.ReactNode
-  hyperlink?: React.ReactNode
-  label?: React.ReactNode
-  span?: React.ReactNode
-  linkResolver?: React.ReactNode
-  htmlSerializer?: React.ReactNode
+  heading1?: ReactNode
+  heading2?: ReactNode
+  heading3?: ReactNode
+  heading4?: ReactNode
+  heading5?: ReactNode
+  heading6?: ReactNode
+  paragraph?: ReactNode
+  preformatted?: ReactNode
+  strong?: ReactNode
+  em?: ReactNode
+  listItem?: ReactNode
+  oListItem?: ReactNode
+  list?: ReactNode
+  oList?: ReactNode
+  image?: ReactNode
+  embed?: ReactNode
+  hyperlink?: ReactNode
+  label?: ReactNode
+  span?: ReactNode
+  linkResolver?: ReactNode
+  htmlSerializer?: ReactNode
 }
 
-export const RichText: React.SFC<RichTextProps> = props =>
+export const RichText: FC<RichTextProps> = (props) =>
   RichTextRenderer.render(
     props.richText,
     {

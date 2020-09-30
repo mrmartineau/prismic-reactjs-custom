@@ -1,7 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RichText snapshot 1`] = `
-<h1>
-  Potenti et eros sed justo commodo bibendum
-</h1>
+<div>
+  <h1>
+    Potenti et eros sed justo commodo bibendum
+  </h1>
+  <p>
+    Potenti et eros sed justo 
+    <strong>
+      commodo bibendum non at nunc
+    </strong>
+    . 
+    <em>
+      Donec a congue leo
+    </em>
+    . Nunc iaculis risus vel orci ornare dignissim sed vitae nulla. Duis sagittis, est sit amet gravida tristique, 
+    <a
+      href="https://zander.wtf"
+      rel="noopener"
+      target="_blank"
+    >
+      purus lectus venenatis urna
+    </a>
+    , id molestie magna risus ut nunc. 
+    <br />
+    Nulla auctor eleifend turpis consequat pharetra. Aliquam nisl enim, tristique tempus placerat at, posuere in lectus. 
+    <a
+      href="https://zander.wtf"
+    >
+      Suspendisse potenti cras
+    </a>
+     molestie, risus a enim convallis vitae luctus libero lacinia.
+  </p>
+  <h2>
+    Potenti et eros sed justo commodo bibendum
+  </h2>
+  <p>
+    <a
+      href=""
+    >
+      Potenti et eros sed justo commodo bibendum
+    </a>
+     non at nunc. Donec a congue leo. Nunc iaculis risus vel orci ornare dignissim sed vitae nulla. Duis sagittis, est sit amet gravida tristique, purus lectus venenatis urna, id molestie magna risus ut nunc. Nulla auctor eleifend turpis consequat pharetra. Aliquam nisl enim, tristique tempus placerat at, posuere in lectus. Suspendisse potenti cras molestie, risus a enim convallis vitae luctus libero lacinia.
+  </p>
+  <ol>
+    <li>
+      Potenti et eros sed 
+      <br />
+      justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+  </ol>
+  <h3>
+    Potenti et eros sed justo commodo bibendum
+  </h3>
+  <p>
+    Potenti et eros sed justo commodo bibendum non at nunc. Donec a congue leo. Nunc iaculis risus vel orci ornare dignissim sed vitae nulla. Duis sagittis, est sit amet gravida tristique, purus lectus venenatis urna, id molestie magna risus ut nunc. Nulla auctor eleifend turpis consequat pharetra. Aliquam nisl enim, tristique tempus placerat at, posuere in lectus. Suspendisse potenti cras molestie, risus a enim convallis vitae luctus libero lacinia.
+  </p>
+  <ul>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+    <li>
+      Potenti et eros sed justo commodo
+    </li>
+  </ul>
+  <h4>
+    Potenti et eros sed justo commodo bibendum
+  </h4>
+  <p>
+    Potenti et eros sed justo commodo bibendum non at nunc. Donec a congue leo. Nunc iaculis risus vel orci ornare dignissim sed vitae nulla.
+  </p>
+  <p
+    class=" block-img"
+  >
+    <img
+      alt=""
+      src="https://images.unsplash.com/photo-1532444143931-9f60a76242e7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjY2MDJ9&s=fee52288790c4c19f99e32ac1d489a4c"
+    />
+  </p>
+  <h5>
+    Potenti et eros sed justo commodo bibendum
+  </h5>
+  <p>
+    Potenti et eros sed justo commodo bibendum non at nunc. Donec a congue leo. Nunc iaculis risus vel orci ornare dignissim sed vitae nulla.
+  </p>
+  <div
+    class="embed embed-youtube"
+    data-oembed="https://www.youtube.com/watch?v=aI_pNBBQBvE"
+    data-oembed-provider="YouTube"
+    data-oembed-type="video"
+  >
+    <div>
+      <iframe
+        allow="autoplay; encrypted-media"
+        allowfullscreen=""
+        frameborder="0"
+        height="270"
+        src="https://www.youtube.com/embed/aI_pNBBQBvE?feature=oembed"
+        width="480"
+      />
+    </div>
+  </div>
+</div>
 `;
