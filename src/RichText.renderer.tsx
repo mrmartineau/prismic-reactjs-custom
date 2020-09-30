@@ -3,9 +3,6 @@ import React, { createElement, ElementType, Fragment, ReactNode } from 'react'
 import { Elements, asText, serialize as PRserialize } from 'prismic-richtext'
 import { Link as LinkHelper } from 'prismic-helpers'
 import { PrismicRichText } from './RichText.model'
-import { embeds } from './embeds'
-const createScript =
-  typeof window !== `undefined` ? require('./embeds').createScript : () => {}
 
 const chooseElement = (
   standardTag: string,
@@ -243,28 +240,19 @@ function serializeImage(
 }
 
 function serializeEmbed(element: any, key: number, CustomEmbed: ElementType) {
-  if (embeds[element.oembed.provider_name]) {
-    createScript(embeds[element.oembed.provider_name])
-  }
-
   const className = `embed embed-${element.oembed.provider_name.toLowerCase()}`
   const props = Object.assign(
     {
       'data-oembed': element.oembed.embed_url,
       'data-oembed-type': element.oembed.type,
       'data-oembed-provider': element.oembed.provider_name,
-      ref: (ref) => {
-        if (embeds[element.oembed.provider_name]) {
-          embeds[element.oembed.provider_name].load(ref)
-        }
-      },
     },
     element.label
       ? { className: `${className} ${element.label}` }
       : { className }
   )
 
-  let embedHtml
+  let embedHtml: ReactNode
 
   if (CustomEmbed) {
     embedHtml = <CustomEmbed key={key} />
