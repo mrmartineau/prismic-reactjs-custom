@@ -38,6 +38,7 @@ export const RichText: FC<RichTextProps> = (props) =>
       heading5: props.heading5,
       heading6: props.heading6,
       paragraph: props.paragraph,
+      preformatted: props.preformatted,
       strong: props.strong,
       em: props.em,
       listItem: props.listItem,
